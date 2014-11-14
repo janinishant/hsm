@@ -61,7 +61,7 @@ $(document).ready(function() {
         return '<div class="row horizontal-separator"><div class="col-md-12"><hr></div>' +
             '</div><div class="row">' +
             '<div class="col-md-2 question-option-row"><strong>'+this.ucFirst(question)+'?</strong></div>' +
-            '<div class="col-md-10 ' +
+            '<div class="col-md-10 options-row' +
             '">'+answerSelect+'</div></div>'
     };
 
@@ -100,6 +100,11 @@ $(document).ready(function() {
 
         var rowHtml = this.buildRow(question,answerSelect);
         $('#control-flow').append(rowHtml);
+
+        var listOfSelects = $("select");
+        for(var i=0;i<listOfSelects.length;i++){
+            $(listOfSelects[i]).select2();
+        }
     };
 
     /**
@@ -149,10 +154,16 @@ $(document).ready(function() {
 
     });
 
+//    $(document).on('click','.clear', function() {
+//        debugger;
+//    });
+
     function removeInvalidDOMElements(currentElement) {
         var invalidElements = $(currentElement).parent().parent().nextAll();
         for(var i =0;i< invalidElements.length;i++) {
-            $(invalidElements[i].remove());
+            $(invalidElements[i]).fadeOut('slow',function(){
+                $(this).remove();
+            });
         }
 
     }

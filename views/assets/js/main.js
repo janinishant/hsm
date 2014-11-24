@@ -46,7 +46,11 @@ $(document).ready(function() {
     UscHsmGlobal.prototype.buildSelect = function(data,depth) {
         return '<select class="form-control answer-select" data-old-value="">'+this.createOptions(data)+'</select>'
     };
-
+    /**
+     *
+     * @param options
+     * @returns {string}
+     */
     UscHsmGlobal.prototype.createOptions = function (options) {
         var opt = '<option>Select an option </option>';
         if(options instanceof Array) {
@@ -154,9 +158,11 @@ $(document).ready(function() {
 
     });
 
-//    $(document).on('click','.clear', function() {
-//        debugger;
-//    });
+    $(document).on('click','.clear',{'hsmObj': HsmObj}, function() {
+        HsmObj.keysTraversed = [];
+        $('#control-flow').empty();
+        HsmObj.traverseToExcelData();
+    });
 
     function removeInvalidDOMElements(currentElement) {
         var invalidElements = $(currentElement).parent().parent().nextAll();

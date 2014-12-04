@@ -46,8 +46,9 @@ $(document).ready(function() {
     UscHsmGlobal.prototype.buildSelect = function(data,depth) {
         return '<select class="form-control answer-select" data-old-value="">'+this.createOptions(data)+'</select>'
     };
+
     /**
-     *
+     * Create select2 for options
      * @param options
      * @returns {string}
      */
@@ -61,14 +62,23 @@ $(document).ready(function() {
         return opt;
     };
 
+    /**
+     * Builds a single row the app, i.e a label and a select with options
+     * @param question label
+     * @param answerSelect Options for the question
+     * @returns {string} HTML string returned
+     */
     UscHsmGlobal.prototype.buildRow = function (question,answerSelect) {
-        return '<div class="row horizontal-separator"><div class="col-md-12"><hr></div>' +
+       return '<div class="row horizontal-separator"><div class="col-md-12"><hr></div>' +
             '</div><div class="row">' +
             '<div class="col-md-2 question-option-row"><strong>'+this.ucFirst(question)+'?</strong></div>' +
             '<div class="col-md-10 options-row' +
             '">'+answerSelect+'</div></div>'
     };
 
+    /**
+     * Based on the key traversed upto now, the program will
+     */
     UscHsmGlobal.prototype.traverseToExcelData = function() {
         var i =0;
         var options;
@@ -158,12 +168,20 @@ $(document).ready(function() {
 
     });
 
+    /**
+     * Clear button click handler
+     * Will empty the container and just display the first select box
+     */
     $(document).on('click','.clear',{'hsmObj': HsmObj}, function() {
         HsmObj.keysTraversed = [];
         $('#control-flow').empty();
         HsmObj.traverseToExcelData();
     });
 
+    /**
+     * Once a select changes, we want to remove the select following it, since they are now invalid
+     * @param currentElement Element that is selected
+     */
     function removeInvalidDOMElements(currentElement) {
         var invalidElements = $(currentElement).parent().parent().nextAll();
         for(var i =0;i< invalidElements.length;i++) {

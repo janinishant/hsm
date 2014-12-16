@@ -13,6 +13,8 @@ class DataManager {
 
     public function getAllInJson()
     {
+        header("Content-type: application/json");
+
         echo (json_encode($this->getAll()));
     }
 
